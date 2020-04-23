@@ -9,11 +9,15 @@ def main():
     semi_annual_raise = 0.07
 
     portion_down_payment = float(total_cost * 0.25)
+
+    # Set savings to zero so we have something to start with
     savings = 0
 
     annual_return = 0.04
     #cube = 0.25
     #epsilon = 0.01
+
+    # Initialise our starting values.
     num_guesses = 0
     low = 0
     high = 10000
