@@ -19,28 +19,42 @@ def main():
     high = 10000
     guess = (high + low) // 2.0
 
+    # while we are not within our margin
     while abs(savings - portion_down_payment) >= 100:
+        # reset our savings
         savings = 0
+
+        # set our initial guess
         guess_rate = guess / 10000
 
+        # make a copy of our annual salary
         temp_annual_salary = annual_salary
 
+        # calculate the savings made within 3 years.
         for month in range(36):
+
+            # Update our salary every 6 months
             if month % 6 == 0 and month != 0:
                 temp_annual_salary += temp_annual_salary * semi_annual_raise
 
+            # Update our monthly salary if needed
             monthly_salary = temp_annual_salary / 12
 
+            # Set how much we saved this month with out new salary and our guess
+            # interest rate.
             portion_saved = monthly_salary * guess_rate
+
+            # Add on our ROI
             roi = float(savings * annual_return / 12)
+
+            # Update our total savings
             savings += roi + portion_saved
 
-            print('guess_rate:', guess_rate)
-            print('month:', month)
-            print('savings:', savings)
-            
+            # Update the month count until the end and break out.
             month += 1
 
+
+        # Check if our savings are less that our required down payment
         if savings < portion_down_payment:
             low = guess
         else:
@@ -48,8 +62,11 @@ def main():
 
         # next guess is halfway in search space
         guess = (high + low) / 2
+
+        # update our guess count
         num_guesses += 1
 
+        # Prevent our infinate loop as we can't make the count work.
         if num_guesses > 13:
             print("Could not calculate")
             break
