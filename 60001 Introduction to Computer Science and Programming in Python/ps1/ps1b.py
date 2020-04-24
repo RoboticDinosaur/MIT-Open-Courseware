@@ -8,30 +8,30 @@ Number of months: 142
 ####
 # Get the inputs direct to variables.
 #####
-ANNUAL_SALARY = int(input('Enter your annual salary: '))
-PORTION_SAVE_PERCENT = float(input('Enter the percent of your salary to save, as a decimal: '))
-TOTAL_COST = int(input('Enter the cost of your dream home: '))
-SEMI_ANNUAL_RAISE = float(input('Enter your semi annual raise: '))
+annual_salary = int(input('Enter your annual salary: '))
+portion_save_percent = float(input('Enter the percent of your salary to save, as a decimal: '))
+total_cost = int(input('Enter the cost of your dream home: '))
+semi_annual_raise = float(input('Enter your semi annual raise: '))
 
-PORTION_DOWN_PAYMENT = TOTAL_COST * 0.25
-SAVINGS = 0
+portion_down_payment = total_cost * 0.25
+savings = 0
 
-R = float(0.04)
+r = float(0.04)
 
-MONTH_COUNT = int(0)
+month = int(0)
 
-while SAVINGS < PORTION_DOWN_PAYMENT:
-    if MONTH_COUNT % 6 == 0 and MONTH_COUNT != 0:
-        ANNUAL_SALARY += ANNUAL_SALARY * SEMI_ANNUAL_RAISE
+while savings < portion_down_payment:
+    if month % 6 == 0 and month != 0:
+        annual_salary += annual_salary * semi_annual_raise
 
-    MONTHLY_SALARY = ANNUAL_SALARY / 12
-
-
-    PORTION_SAVED = MONTHLY_SALARY * PORTION_SAVE_PERCENT
-    ROI = float(SAVINGS * R / 12)
-
-    SAVINGS += ROI + PORTION_SAVED
-    MONTH_COUNT += 1
+    monthly_salary = annual_salary / 12
 
 
-print('Number of months: ', MONTH_COUNT)
+    portion_saved = monthly_salary * portion_save_percent
+    roi = float(savings * r / 12)
+
+    savings += roi + portion_saved
+    month += 1
+
+
+print('Number of months: ', month)
