@@ -17,6 +17,72 @@
 #         month += 1
 #     print('Number of months: ', month)
 
+# Enter the starting salary: 150000
+# Best savings rate: 0.4411
+# Steps in bisection search: 12
+
+# class Foo(object):
+#     def __init__(self, initial_value):
+#         self.value  = initial_value
+
+# # Case 1
+# a = Foo(45)
+# print(a.value) # 45
+
+# b = a
+
+# print(b.value) # 45
+
+# b.value = 100 
+# print(b.value) # 100
+# print(a.value) # 100
+
+# # Case 2
+# a = 45
+# print(a) # 45
+# b = a
+# print(b) # 45
+
+# b = 100 # different from b.value=100
+# print(b) # 100
+# print(a) # 45
+
+# # Case 3
+# a = Foo(45)
+# print(a.value) # 45
+
+# b = a
+
+# print(b.value) # 45
+
+# b = Foo(100)
+# print(b.value) # 100
+# print(a.value) # 45  <<<<<
+
+# def hi(b):
+#     b.value = 100
+#     print(b.value)
+
+# a = Foo(45)
+# hi(a) # 100
+# print(a.value) # 100
+
+def calculate_savings(annual_salary, semi_annual_raise, annual_return, rate):
+    savings = 0
+    for month in range(36):
+        # print('guess:%d month:%d savings_total:%f' % (num_guesses, month, savings))
+        if month % 6 == 0 and month > 0:
+            annual_salary += annual_salary * semi_annual_raise
+        monthly_salary = annual_salary / 12
+
+        portion_saved = monthly_salary * rate
+        roi = savings * annual_return / 12
+
+        savings += roi + portion_saved
+        month += 1
+
+    return savings
+
 def main():
     annual_salary = int(input('Enter your annual salary: '))
     total_cost = 1000000
@@ -24,7 +90,6 @@ def main():
     semi_annual_raise = 0.07
     annual_return = 0.04
     savings = 0
-    month = 0
 
     low = 0
     high = 10000
@@ -33,19 +98,9 @@ def main():
 
     while abs(savings - portion_down_payment) >= 100:
         guess_rate = guess / 10000
-
-        for month in range(36):
-            if month % 6 == 0 and month > 0:
-                annual_salary += annual_salary * semi_annual_raise
-            monthly_salary = annual_salary / 12
-
-            portion_saved = monthly_salary * guess_rate
-            roi = savings * annual_return / 12
-
-            savings += roi + portion_saved
-            month += 1
             
-        # I'm not sure of this answer.
+        savings = calculate_savings(annual_salary, semi_annual_raise, annual_return, guess_rate)
+
         if savings < portion_down_payment:
             low = guess
         else:
