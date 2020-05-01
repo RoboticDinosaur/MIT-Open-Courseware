@@ -357,7 +357,8 @@ def hangman_with_hints(secret_word):
 
         print('----------')
       elif current_guess == "*":
-        print(show_possible_matches(get_guessed_word(secret_word, guessed_letters)))
+        words = show_possible_matches(get_guessed_word(secret_word, guessed_letters))
+        print(' '.join(words))
         continue
       else:
         print('Please enter a letter')
@@ -365,7 +366,7 @@ def hangman_with_hints(secret_word):
 
     except TypeError:
       print('You need to input a valid answer')
-      
+
   score = guesses * unique_letters(secret_word)
   print('Your total score for this game is: %d' % score)
 
