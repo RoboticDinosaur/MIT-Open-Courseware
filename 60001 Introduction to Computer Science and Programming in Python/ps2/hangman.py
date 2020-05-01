@@ -248,10 +248,14 @@ def match_with_gaps(my_word, other_word):
     
     word = list(my_word.replace(' ', ''))
     temp = list(other_word)
+    count = 0
 
     for value, letter in enumerate(word):
       if letter == "_":
         temp[value] = letter
+        count += 1
+    if count == 1:
+      return
     if word == temp:
       return True
     else:
@@ -273,15 +277,6 @@ def show_possible_matches(my_word):
     for word in wordlist:
       if len(word) == length and match_with_gaps(my_word, word):
         temp.append(word)
-
-    # temp2 = []
-    # for el in temp:
-    #   print(el)
-    #   if match...
-    #     temp2.append(el)
-    #   if match_with_gaps(my_word, el) == False:
-    #     print(el)
-    #     temp.remove(el)
 
     return temp
 
@@ -353,16 +348,26 @@ def hangman_with_hints(secret_word):
               guesses -= 1
         else:
           print('Oops that letter is not in my word: %s' % get_guessed_word(secret_word, guessed_letters))
-          guesses -= 1
+          if warnings > 0:
+            warnings -= 1
+            print('You have %d warnings remaining' % warnings)
 
-        print('----------')
+          if warnings == 0:
+            print('You have no warnings left so you lose one guess: %s' % get_guessed_word(secret_word, guessed_letters))
+            guesses -= 1
+
       elif current_guess == "*":
         words = show_possible_matches(get_guessed_word(secret_word, guessed_letters))
         print(' '.join(words))
-        continue
       else:
-        print('Please enter a letter')
-        continue
+        print('You need to input a valid answer')
+        if warnings > 0:
+          warnings -= 1
+          print('You have %d warnings remaining' % warnings)
+
+        if warnings == 0:
+          print('You are out of warnings. You lose a guess')
+          guesses -= 1
 
     except TypeError:
       print('You need to input a valid answer')
