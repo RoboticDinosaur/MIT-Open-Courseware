@@ -222,30 +222,7 @@ def match_with_gaps(my_word, other_word):
         _ , and my_word and other_word are of the same length;
         False otherwise: 
     '''
-    # guessed_word = ''
 
-    # for letter in secret_word:
-    #   if letter not in letters_guessed:
-    #     guessed_word += '_ '
-    #   else:
-    #     guessed_word += letter 
-
-    # return guessed_word
-
-    # Guessed s,c t
-    # s_ _ _ _ t
-    # secret matches?
-    # 
-    # s_ _ _ _ t
-    # 'sachet', 'sadist', 'safest', 'sagest', 'sanest', 'savant', 
-    # 'schist', 'script', 'sculpt', 'secant', 'secret', 'select', 
-    # 'septet', 'serest', 'sestet', 'sexist', 'sextet', 'shiest', 
-    # 'shrift', 'signet', 'silent', 'sliest', 'slight', 'socket', 
-    # 'sonnet', 'sorest', 'sought', 'soviet', 'spigot', 'spinet', 
-    # 'spirit', 'splint', 'sprint', 'sprout', 'squint', 'squirt', 
-    # 'strait', 'street', 'strict', 'sublet', 'submit', 'subset', 
-    # 'summit', 'sunlit', 'sunset', 'surest'
-    
     word = list(my_word.replace(' ', ''))
     temp = list(other_word)
     count = 0
@@ -261,8 +238,18 @@ def match_with_gaps(my_word, other_word):
     else:
       return False
 
+def contains_letters(word, wrong_letters):
+  '''
+  word: string, the word to test
+  wrong_letters: list, the list of letters to test the word against
+  returns: True or False
+  '''
+  for letter in word:
+    if letter in wrong_letters:
+      return True
+  return False
 
-def show_possible_matches(my_word):
+def show_possible_matches(my_word, wrong_letters):
     '''
     my_word: string with _ characters, current guess of secret word
     returns: nothing, but should print out every word in wordlist that matches my_word
@@ -275,10 +262,13 @@ def show_possible_matches(my_word):
     length = len(secret_word)
     temp = []
     for word in wordlist:
-      if len(word) == length and match_with_gaps(my_word, word):
+      if len(word) == length and match_with_gaps(my_word, word) and not contains_letters(word, wrong_letters):
         temp.append(word)
 
-    return temp
+    if not temp:
+      print('Nothing to suggest')
+    else:
+      print(' '.join(temp))
 
 def hangman_with_hints(secret_word):
   '''
@@ -311,6 +301,7 @@ def hangman_with_hints(secret_word):
 
   guesses = 6
   guessed_letters = []
+  wrong_letters = []
   warnings = 3
 
   print('Welcome to HANGMAN')
@@ -348,6 +339,8 @@ def hangman_with_hints(secret_word):
               guesses -= 1
         else:
           print('Oops that letter is not in my word: %s' % get_guessed_word(secret_word, guessed_letters))
+          if current_guess not in wrong_letters:
+            wrong_letters.append(current_guess)
           if warnings > 0:
             warnings -= 1
             print('You have %d warnings remaining' % warnings)
@@ -357,8 +350,7 @@ def hangman_with_hints(secret_word):
             guesses -= 1
 
       elif current_guess == "*":
-        words = show_possible_matches(get_guessed_word(secret_word, guessed_letters))
-        print(' '.join(words))
+        show_possible_matches(get_guessed_word(secret_word, guessed_letters), wrong_letters)
       else:
         print('You need to input a valid answer')
         if warnings > 0:
