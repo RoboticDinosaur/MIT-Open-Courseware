@@ -91,6 +91,24 @@ def get_word_score(word, n):
     n: int >= 0
     returns: int >= 0
     """
+   
+    result = 0
+
+    word = word.lower()
+
+    # No string returns...
+    for letter in word:
+        if letter.isalpha:
+            result += SCRABBLE_LETTER_VALUES[letter]
+    # scored = 42
+    
+    second_component = 7 * len(word) - 3 * (n - len(word))
+
+    if second_component < 1:
+        second_component = 1
+
+    result = result * second_component
+    return result
 
 #
 # Make sure you understand how this function works and what it does!
