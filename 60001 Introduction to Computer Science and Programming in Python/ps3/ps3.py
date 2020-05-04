@@ -183,9 +183,18 @@ def update_hand(hand, word):
     hand: dictionary (string -> int)    
     returns: dictionary (string -> int)
     """
+    word = word.lower()
 
-    pass  # TO DO... Remove this line when you implement this function
+    new_hand = dict(hand)
 
+    for letter in word:
+        new_hand[letter] = new_hand[letter] - 1
+        if new_hand[letter] == 0:
+            new_hand.pop(letter, None)
+
+    return new_hand
+    
+    
 #
 # Problem #3: Test word validity
 #
