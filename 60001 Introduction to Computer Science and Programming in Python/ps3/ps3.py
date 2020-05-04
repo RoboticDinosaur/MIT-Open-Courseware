@@ -193,8 +193,7 @@ def update_hand(hand, word):
             new_hand.pop(letter, None)
 
     return new_hand
-    
-    
+
 #
 # Problem #3: Test word validity
 #
@@ -210,7 +209,41 @@ def is_valid_word(word, hand, word_list):
     returns: boolean
     """
 
-    pass  # TO DO... Remove this line when you implement this function
+    total = 0
+
+    word = word.lower()
+    new_hand = dict(hand)
+    new_list = []
+
+    print('----')
+    print('HAND', new_hand)
+
+    for item in word_list:
+        if len(item) == len(word):
+            new_list.append(item)
+    
+    for item in new_list:
+        for i in range(len(item)):
+            if word[i] in new_hand:
+                print('Letter', word[i])
+                if word[i] == item[i]:
+                    continue
+                elif word[i] == '*' and item[i] in VOWELS:
+                    print('*', word[i])
+                    continue
+                else:
+                    return False
+
+            # if letter in word and letter in new_hand and new_hand[letter] >= 1:
+            #     new_hand[letter] -= 1
+            #     total += 1
+            # elif "*" in word and "*" in new_hand and new_hand['*'] >= 1 and letter in VOWELS:
+            #     total += 1
+            #     new_hand['*'] -= 1
+            # else:
+            #     return False
+    
+    print('HAND', new_hand)
 
 #
 # Problem #5: Playing a hand
@@ -240,6 +273,7 @@ def play_hand(hand, word_list):
     * An invalid word is rejected, and a message is displayed asking
       the user to choose another word.
 
+    
     * After every valid word: the score for that word is displayed,
       the remaining letters in the hand are displayed, and the user
       is asked to input another word.
