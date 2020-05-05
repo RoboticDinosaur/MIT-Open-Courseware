@@ -209,42 +209,33 @@ def is_valid_word(word, hand, word_list):
     returns: boolean
     """
 
-    total = 0
-
     word = word.lower()
-    new_hand = dict(hand)
     new_list = []
-
-    print('----')
-    print('HAND', new_hand)
 
     for item in word_list:
         if len(item) == len(word):
             new_list.append(item)
     
     for item in new_list:
+        flag = False
         for i in range(len(item)):
-            if word[i] in new_hand:
-                print('Letter', word[i])
-                if word[i] == item[i]:
-                    continue
-                elif word[i] == '*' and item[i] in VOWELS:
-                    print('*', word[i])
-                    continue
-                else:
-                    return False
-
-            # if letter in word and letter in new_hand and new_hand[letter] >= 1:
-            #     new_hand[letter] -= 1
-            #     total += 1
-            # elif "*" in word and "*" in new_hand and new_hand['*'] >= 1 and letter in VOWELS:
-            #     total += 1
-            #     new_hand['*'] -= 1
-            # else:
-            #     return False
+            if word[i] == item[i] and word[i] in new_hand and new_hand.get(word[i]) >= 1:
+                new_hand[word[i]] = new_hand[word[i]] - 1
+                flag = True
+                continue
+            elif word[i] == '*' and item[i] in VOWELS and word[i] in new_hand and new_hand.get(word[i]) >= 1:
+                flag = True
+                continue
+            else:
+                # print('BREAK\nWORD: %s\nITEM: %s' % (word[i], item[i]))
+                new_hand = dict(hand)
+                flag = False
+                break
+            
+        if flag == True:
+            return True
     
-    print('HAND', new_hand)
-
+    return False
 #
 # Problem #5: Playing a hand
 #
