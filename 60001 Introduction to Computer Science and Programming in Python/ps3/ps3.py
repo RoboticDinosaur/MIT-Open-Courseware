@@ -11,7 +11,7 @@ import math
 import random
 import string
 
-VOWELS = 'aeiou'
+VOWELS = 'aeiou*'
 CONSONANTS = 'bcdfghjklmnpqrstvwxyz'
 HAND_SIZE = 7
 
@@ -98,7 +98,7 @@ def get_word_score(word, n):
 
     # No string returns...
     for letter in word:
-        if letter.isalpha:
+        if letter.isalpha and letter != "*":
             result += SCRABBLE_LETTER_VALUES[letter]
     # scored = 42
     
@@ -186,7 +186,6 @@ def update_hand(hand, word):
     word = word.lower()
 
     new_hand = dict(hand)
-
     for letter in word:
         new_hand[letter] = new_hand[letter] - 1
         if new_hand[letter] == 0:
@@ -208,6 +207,21 @@ def is_valid_word(word, hand, word_list):
     word_list: list of lowercase strings
     returns: boolean
     """
+    # TEST - apples                       \
+    # WORD - apples                         - Valid
+    # HAND - a:1, p:2, l:1, e:3, s:1, *:0 /
+
+    # TEST - apples                       \
+    # WORD - apples                         - Valid
+    # HAND - a:0, p:2, l:1, e:3, s:1, *:1 /
+
+    # TEST - apples                       \
+    # WORD - foobar                         - Not valid
+    # HAND - a:1, p:2, l:1, e:3, s:1, *:0 /
+
+    # TEST - apples                       \
+    # WORD - apples                         - Not Valid
+    # HAND - a:0, p:2, l:1, e:3, s:1, *:0 /
 
     word = word.lower()
     new_list = []
@@ -218,17 +232,23 @@ def is_valid_word(word, hand, word_list):
     
     for item in new_list:
         flag = False
+        new_hand = dict(hand)       
+
         for i in range(len(item)):
-            if word[i] == item[i] and word[i] in new_hand and new_hand.get(word[i]) >= 1:
+            letters_match = word[i] == item[i]
+            letter_is_in_hand = word[i] in new_hand
+            letter_is_wildcard = word[i] == '*'
+            letter_is_vowel = item[i] in VOWELS
+
+            if letters_match and letter_is_in_hand and new_hand.get(word[i]) >= 1:
                 new_hand[word[i]] = new_hand[word[i]] - 1
                 flag = True
                 continue
-            elif word[i] == '*' and item[i] in VOWELS and word[i] in new_hand and new_hand.get(word[i]) >= 1:
+            elif letter_is_wildcard and letter_is_vowel and letter_is_in_hand and new_hand.get(word[i]) >= 1:
                 flag = True
                 continue
             else:
                 # print('BREAK\nWORD: %s\nITEM: %s' % (word[i], item[i]))
-                new_hand = dict(hand)
                 flag = False
                 break
             
