@@ -158,8 +158,9 @@ def deal_hand(n):
 
     if "*" not in hand:
         temp = random.choice(list(hand.keys()))
+        number = hand.get(temp)
         del hand[temp]
-        hand["*"] = 1
+        hand["*"] = number
         # hand[temp] = "*"
 
     for i in range(num_vowels, n):    
