@@ -1,7 +1,7 @@
 # Problem Set 4A
-# Name: <your name here>
-# Collaborators:
-# Time Spent: x:xx
+# Name: Robert Forbes
+# Collaborators: None
+# Time Spent:  Too long.
 
 def get_permutations(sequence):
     '''
@@ -23,7 +23,20 @@ def get_permutations(sequence):
     a different order than what is listed here.
     '''
 
-    pass #delete this line and replace with your code here
+    # Base case
+    if len(sequence) == 1:
+        return sequence
+
+    # Recursive case
+    else:
+        result = []
+        # for each item in get_permutations(remove first char)
+        for item in get_permutations(sequence[:-1]):
+            for el in range(len(item) + 1):
+                # Swap the first and last items
+                result.append(item[:el] + sequence[-1] + item[el:])
+
+        return list(set(result))
 
 if __name__ == '__main__':
 #    #EXAMPLE
@@ -36,5 +49,15 @@ if __name__ == '__main__':
 #    to be three characters or fewer as you will have n! permutations for a 
 #    sequence of length n)
 
-    pass #delete this line and replace with your code here
+    example_input = 'abc'
+    print('Input:', example_input)
+    print('Expected Output:', ['abc', 'acb', 'bac', 'bca', 'cab', 'cba'])
+    print('Actual Output:', get_permutations(example_input))
+    print('----------')
+
+    example_input = 'aaa'
+    print('Input:', example_input)
+    print('Expected Output:', ['aaa'])
+    print('Actual Output:', get_permutations(example_input))
+    print('----------')
 
