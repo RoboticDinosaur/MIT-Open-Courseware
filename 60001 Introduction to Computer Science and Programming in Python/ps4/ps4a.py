@@ -31,10 +31,17 @@ def get_permutations(sequence):
     else:
         result = []
         # for each item in get_permutations(remove first char)
-        for item in get_permutations(sequence[:-1]):
-            for el in range(len(item) + 1):
+        # "abc"
+        head = sequence[0]  # a
+        tail = sequence[1:] # bc   <-- By recursion, we permute this
+        # permutions of "abc" are the permutations of "bc" with 'a' inserted in all 3 locations
+        #
+        # get_permutations is provided by others and works.
+        # perms = ['bc', 'cb']
+        for perms in get_permutations(tail):
+            for insert_location in range(len(perms) + 1):
                 # Swap the first and last items
-                result.append(item[:el] + sequence[-1] + item[el:])
+                result.append(perms[:insert_location] + head + perms[insert_location:])
 
         return list(set(result))
 
