@@ -1,8 +1,9 @@
 # 6.0001/6.00 Problem Set 5 - RSS Feed Filter
-# Name:
-# Collaborators:
+# Name: Robert Forbes
+# Collaborators: None
 # Time:
-
+#     Start: 13.05.2020 // 14.00
+# Completed: 13.05.2020 // 
 import feedparser
 import string
 import time
@@ -53,8 +54,37 @@ def process(url):
 #======================
 
 # Problem 1
+class NewsStory(object):
+    def __init__(self, guid, title, description, link, pubdate):
+        '''
+        Initializes a NewsStory object
+                
+        guid        (string): the news story guid
+        title       (string): the news story title
+        description (string): the news story description
+        link        (string): the news story link
+        pubdate     (string): the news story published date
+        '''
+        self.guid = guid
+        self.title = title
+        self.description = description
+        self.link = link
+        self.pubdate = pubdate
+        
+    def get_guid(self):
+        return self.guid
 
-# TODO: NewsStory
+    def get_title(self):
+        return self.title
+
+    def get_description(self):
+        return self.description
+
+    def get_link(self):
+        return self.link
+
+    def get_pubdate(self):
+        return self.pubdate
 
 
 #======================
