@@ -1,7 +1,7 @@
 # Problem Set 4B
-# Name: <your name here>
-# Collaborators:
-# Time Spent: x:xx
+# Name: Robert Forbes
+# Collaborators: None
+# Time Spent: 
 
 import string
 
@@ -257,28 +257,29 @@ class CiphertextMessage(Message):
         '''
 
         # break message in to words.
-        words = self.get_message_text().split(' ')
-
         wordlist = self.get_valid_words()
 
-        number_of_words = len(words)
+        best_shift = 0
+        best_count = 0
         # test word against each offset (below 26)
         for i in range(26):
-            dictionary = self.build_shift_dict(i)
-            plain_text = self.apply_shift(i)
+            words = self.apply_shift(i)
+            words = words.split()
+            
+            count = 0
+           
+            for word in words:
+                if is_word(wordlist, word):
+                    count += 1
 
-            if is_word(wordlist, plain_text):
-                return (i, plain_text)
+            if count > best_count:
+                best_shift = i
+                best_count = count
+        
+        plain_text = self.apply_shift(best_shift)
 
+        return (best_shift, plain_text)
 
-        #     print('Plain Text', plain_text)
-
-        # if word is a match, test next word.
-        # loop
-
-        print('WORDS', words)
-        print('LEN', number_of_words)
-        print('DICT', dictionary)
 
 if __name__ == '__main__':
     plaintext = PlaintextMessage('abcdef', 2)
@@ -291,10 +292,22 @@ if __name__ == '__main__':
     print('Expected Output: Lipps, Asvph!')
     print('Actual Output:  ', plaintext.get_message_text_encrypted())
 
+    plaintext = PlaintextMessage('My Name is Rob, how are you?', 10)
+    print('Plaintext Input: My Name is Rob, how are you?')
+    print('Actual Output:  ', plaintext.get_message_text_encrypted())
+
     #Example test case (CiphertextMessage)
     ciphertext = CiphertextMessage('jgnnq')
     print('Expected Output:', (24, 'hello'))
     print('Actual Output:  ', ciphertext.decrypt_message())
+
+    ciphertext = CiphertextMessage('Wi Xkwo sc Byl, ryg kbo iye?')
+    print('Expected Output:', (10, 'My Name is Rob, how are you?'))
+    print('Actual Output:  ', ciphertext.decrypt_message())
+
+    story =  get_story_string()
+    ciphertext = CiphertextMessage(story)
+    print('Unencrypted story:', ciphertext.decrypt_message())
 
     #TODO: WRITE YOUR TEST CASES HERE
     #TODO: best shift value and unencrypted story 
