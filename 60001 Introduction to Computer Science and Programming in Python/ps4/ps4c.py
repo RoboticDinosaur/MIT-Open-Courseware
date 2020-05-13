@@ -2,7 +2,8 @@
 # Name: Robert Forbes
 # Collaborators: None
 # Time Spent:
-#   Start: 13.05.2020 // 12.30
+#     Start: 13.05.2020 // 12.30
+# Completed: 13.05.2020 // 13.43
 
 import string
 from ps4a import get_permutations
