@@ -250,7 +250,8 @@ def is_valid_word(word, hand, word_list):
             if letters_match and letter_is_in_hand and new_hand.get(word[i]) > 0:
                 new_hand[word[i]] = new_hand[word[i]] - 1
                 flag = True
-            elif letter_is_wildcard and letter_is_vowel and letter_is_in_hand and new_hand.get(word[i]) > 1:
+            elif letter_is_wildcard and letter_is_vowel and letter_is_in_hand and new_hand.get(word[i]) > 0:
+                new_hand["*"] -= 1
                 flag = True
             else:
                 # print('BREAK\nWORD: %s\nITEM: %s' % (word[i], item[i]))
