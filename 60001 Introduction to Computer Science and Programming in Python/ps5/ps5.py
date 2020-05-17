@@ -127,10 +127,11 @@ class PhraseTrigger(Trigger):
             if letter in string.punctuation:
                 input_text = input_text.replace(letter, ' ')
 
-        input_text = input_text.replace('  ', ' ')
+        input_text = ' ' + input_text + ' '
+        trigger_text = ' ' + trigger_text + ' '
 
-        test_trigger_text = list(trigger_text)
-        test_input_text = list(input_text)
+        while "  " in input_text:
+            input_text = input_text.replace("  ", " ")
 
         #if match == len(trigger_text):
         #     print('FALSE: %s trigger text, in %s' % (trigger_text, input_text))
@@ -145,7 +146,6 @@ class PhraseTrigger(Trigger):
         # query is "purple cow" => "*PURPLE*COW*"
         # text is "purple cows are cool" => "*PURPLE*COWS*ARE*COOL*"
 
-        print('TRUE: %s trigger text, in %s\n' % (test_trigger_text, test_input_text))
         if trigger_text in input_text:
             return True
         else:
