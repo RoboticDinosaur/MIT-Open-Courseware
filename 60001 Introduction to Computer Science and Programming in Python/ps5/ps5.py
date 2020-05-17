@@ -103,10 +103,62 @@ class Trigger(object):
 # PHRASE TRIGGERS
 
 # Problem 2
-# TODO: PhraseTrigger
+# PhraseTrigger
+# ----------
+# A phase could be one of the following:
+#   "purple cow"
+#   "PURPLE COW"
+#   "MooOOO"
+#   "this is a phrase"
+class PhraseTrigger(Trigger):
+    def __init__(self, text):
+        """
+        Set up the Trigger
+        """
+        self.trigger_text = text 
+    def is_phrase_in(self, input_text):
+        """
+        Returns True if the phrase is present in text.
+        """
+        trigger_text = str(self.trigger_text).lower()
+        input_text = str(input_text).lower()
+
+        for letter in input_text:
+            if letter in string.punctuation:
+                input_text = input_text.replace(letter, ' ')
+
+        input_text = input_text.replace('  ', ' ')
+
+        test_trigger_text = list(trigger_text)
+        test_input_text = list(input_text)
+
+        #if match == len(trigger_text):
+        #     print('FALSE: %s trigger text, in %s' % (trigger_text, input_text))
+        #     return True
+
+        # break in to lists
+        # loop and check lists
+        # needle = " purple cow "
+        # haystack = "the purple cow is cool" # Correct match
+        # haystack = "purple cows are cool" # should not match
+        # haystack  = " purple cow " # should match (wrong)
+        # query is "purple cow" => "*PURPLE*COW*"
+        # text is "purple cows are cool" => "*PURPLE*COWS*ARE*COOL*"
+
+        print('TRUE: %s trigger text, in %s\n' % (test_trigger_text, test_input_text))
+        if trigger_text in input_text:
+            return True
+        else:
+            return False
 
 # Problem 3
-# TODO: TitleTrigger
+# TitleTrigger
+
+# 'purple cow'.evaluate(NewsStory('', 'The purple cow is soft and cuddly.', '', '', datetime.now()))
+
+class TitleTrigger(PhraseTrigger):
+    def evaluate(self, story):
+        return self.is_phrase_in(story.title)
 
 # Problem 4
 # TODO: DescriptionTrigger

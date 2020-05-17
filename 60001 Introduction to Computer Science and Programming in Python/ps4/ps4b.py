@@ -164,6 +164,12 @@ class Message(object):
 
         return result
 
+    def apply_shift_for_encryption():
+        pass
+
+    def apply_shift_for_decryption():
+        pass
+
 class PlaintextMessage(Message):
     def __init__(self, text, shift):
         '''
@@ -178,7 +184,6 @@ class PlaintextMessage(Message):
             self.shift (integer, determined by input shift)
             self.encryption_dict (dictionary, built using shift)
             self.message_text_encrypted (string, created using shift)
-
         '''
         self.message_text = text
         self.valid_words = load_words(WORDLIST_FILENAME)
@@ -192,7 +197,7 @@ class PlaintextMessage(Message):
         
         Returns: self.shift
         '''
-        pass #delete this line and replace with your code here
+        return self.shift
 
     def get_encryption_dict(self):
         '''
@@ -200,7 +205,7 @@ class PlaintextMessage(Message):
         
         Returns: a COPY of self.encryption_dict
         '''
-        print('get_encryption_dict')
+        return self.encryption_dict
 
     def get_message_text_encrypted(self):
         '''
@@ -264,9 +269,10 @@ class CiphertextMessage(Message):
 
         best_shift = 0
         best_count = 0
+
         # test word against each offset (below 26)
         for i in range(26):
-            words = self.apply_shift(i)
+            words = self.apply_shift(26 - i)
             words = words.split()
             
             count = 0
@@ -280,7 +286,6 @@ class CiphertextMessage(Message):
                 best_count = count
         
         plain_text = self.apply_shift(best_shift)
-
         return (best_shift, plain_text)
 
 
@@ -295,8 +300,12 @@ if __name__ == '__main__':
     print('Expected Output: Lipps, Asvph!')
     print('Actual Output:  ', plaintext.get_message_text_encrypted())
 
-    plaintext = PlaintextMessage('My Name is Rob, how are you?', 10)
-    print('Plaintext Input: My Name is Rob, how are you?')
+    plaintext = PlaintextMessage('My Name is all, how are you?', 10)
+    print('Plaintext Input: My Name is all, how are you?')
+    print('Actual Output:  ', plaintext.get_message_text_encrypted())
+
+    plaintext = PlaintextMessage('What is going on here.', 17)
+    print('Plaintext Input: What is going on here')
     print('Actual Output:  ', plaintext.get_message_text_encrypted())
 
     #Example test case (CiphertextMessage)
@@ -304,8 +313,12 @@ if __name__ == '__main__':
     print('Expected Output:', (24, 'hello'))
     print('Actual Output:  ', ciphertext.decrypt_message())
 
-    ciphertext = CiphertextMessage('Wi Xkwo sc Byl, ryg kbo iye?')
-    print('Expected Output:', (10, 'My Name is Rob, how are you?'))
+    ciphertext = CiphertextMessage('Nyrk zj xfzex fe yviv.')
+    print('Expected Output:', (17, 'What is going on here'))
+    print('Actual Output: ',  ciphertext.decrypt_message())
+
+    ciphertext = CiphertextMessage('Wi Xkwo sc kvv, ryg kbo iye?')
+    print('Expected Output:', (10, 'My Name is all, how are you?'))
     print('Actual Output:  ', ciphertext.decrypt_message())
 
     story =  get_story_string()

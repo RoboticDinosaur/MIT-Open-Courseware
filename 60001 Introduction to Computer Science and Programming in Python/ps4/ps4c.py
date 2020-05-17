@@ -198,7 +198,6 @@ class EncryptedSubMessage(SubMessage):
             word_list = result.split()
             for word in word_list:
                 if is_word(self.valid_words, word):
-                    print('VALID', word)
                     correct_word_count += 1
                 else:
                     return text_list
