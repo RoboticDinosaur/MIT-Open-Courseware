@@ -161,8 +161,7 @@ class TitleTrigger(PhraseTrigger):
         return self.is_phrase_in(story.title)
 
 # Problem 4
-class DescriptionTrigger(PhraseTrigger):
-    
+# TODO: DescriptionTrigger
 
 # TIME TRIGGERS
 
