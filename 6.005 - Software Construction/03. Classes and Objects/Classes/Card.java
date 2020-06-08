@@ -1,19 +1,31 @@
 public class Card {
 
-    private int value;
-    private int suit;
+    private char value;
+    private char suit;
 
-    public Card(int value, int suit) {
-        // Print it out
-        // Create a card
-        // Compare a card
-        
+    public Card(char cardValue, char cardSuit) {
+        value = cardValue;
+        suit = cardSuit;
     }
+
+
     public int getValue() {
         return value;
     }
 
     public int getSuit() {
         return suit;
+    }
+
+    public boolean compareValue(char compareValue) {
+        return true;
+    }
+
+    public boolean compareSuit(char compareSuit) {
+        return true;
+    }
+
+    public boolean compare(String card) {
+        return true;
     }
 }
