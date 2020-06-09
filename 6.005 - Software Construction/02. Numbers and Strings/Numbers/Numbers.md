@@ -4,31 +4,17 @@
 
 1. Use the API documentation to find the answers to the following questions:
    1. What _Integer_ method can you use to convert an _int_ in to a string that expresses the number in hexadecimal? For example, what method converts the integer 65 in to the string "41"?
-
-      ```
-      toHexString(int i)
-      ```
+      **Answer:** toHexString(int i)
 
    2. What _Integer_ method would you use to convert a string expressed in base 5 into the equivalent _int_? for example, how would you convert the string "230" into the integer value 65? Show the code you would use to accomplish this task.
-
-      ```
-      toString(int i, int radix)
-      ```
+      **Answer:**  toString(int i, int radix)
 
    3. What Double method can you use to detect whether a floating-point number has the special vvalue Not a Number (_Nan_)?
-      
-      ```
-      isNaN(double v)
-      ```
+      **Answer:** isNaN(double v)
 
 2. What is the value of the following expression, and why?
-
-   Integer.valueOf(1).equals(Long.valueOf(1))
-
-   ```
-   True because 1 is the same value as a Long and an Integer
-   ``` 
-
+   `Integer.valueOf(1).equals(Long.valueOf(1))`
+   **Answer:** True because 1 is the same value as a Long and an Integer
 
 ## Exercises
 
@@ -45,7 +31,7 @@
 
 2. Create a program that reads an unspecified number of integer arguments from the command line and adds them together. For example, suppose that you enter the following:
    
-   java Adder 1 3 2 10
+   `java Adder 1 3 2 10`
 
    The program should display 16 and then exit. The program should display an error message if the user enters only one argument. You can base your program on ValueOfDemo.
 3. Create a program that is similar to the previous one but has the following differences:
@@ -55,7 +41,7 @@
 
    For example, suppose that you enter the following:
 
-   java FPAdder 1 1e2 3.0 4.754
+   `java FPAdder 1 1e2 3.0 4.754`
 
    The program would display 108.75. Depending on your locale, the decimal point might be a comma (,) instead of a period (.).
 
