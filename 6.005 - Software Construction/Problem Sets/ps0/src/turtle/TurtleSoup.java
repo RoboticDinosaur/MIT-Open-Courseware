@@ -4,10 +4,12 @@
 package turtle;
 
 import java.util.List;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class TurtleSoup {
-
+	
     /**
      * Draw a square.
      * 
@@ -35,7 +37,13 @@ public class TurtleSoup {
      * @return angle in degrees, where 0 <= angle < 360
      */
     public static double calculateRegularPolygonAngle(int sides) {
-        throw new RuntimeException("implement me!");
+    
+    	
+    	double internalAngle = 360d / sides;
+	    double externalAngle = 180d - internalAngle;	    	
+	    
+   	    return externalAngle;
+
     }
 
     /**
@@ -49,7 +57,12 @@ public class TurtleSoup {
      * @return the integer number of sides
      */
     public static int calculatePolygonSidesFromAngle(double angle) {
-        throw new RuntimeException("implement me!");
+    	Double externalAngle = 180 - Math.ceil(angle);
+    	Double sides = 360 / externalAngle;
+    	
+    	System.out.println(sides.intValue());
+    	
+    	return sides.intValue();
     }
 
     /**
