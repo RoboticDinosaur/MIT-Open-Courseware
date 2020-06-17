@@ -102,7 +102,15 @@ public class TurtleSoup {
      */
     public static double calculateHeadingToPoint(double currentHeading, int currentX, int currentY,
                                                  int targetX, int targetY) {
-        throw new RuntimeException("implement me!");
+    	
+
+    	double angle = Math.atan2(targetY - currentY, targetX - currentX);
+    	
+    	angle = angle * (180/Math.PI);
+    	   	
+    	System.out.println(currentHeading + angle);
+    	    	
+    	return angle;
     }
 
     /**
