@@ -59,9 +59,7 @@ public class TurtleSoup {
     public static int calculatePolygonSidesFromAngle(double angle) {
     	Double externalAngle = 180 - Math.ceil(angle);
     	Double sides = 360 / externalAngle;
-    	
-    	System.out.println(sides.intValue());
-    	
+    	   	
     	return sides.intValue();
     }
 
@@ -75,7 +73,12 @@ public class TurtleSoup {
      * @param sideLength length of each side
      */
     public static void drawRegularPolygon(Turtle turtle, int sides, int sideLength) {
-        throw new RuntimeException("implement me!");
+    	double angle = calculateRegularPolygonAngle(sides) + 180;
+    	
+    	for (int i = 0; i < sides; i++) {
+    		turtle.turn(angle);
+    		turtle.forward(sideLength);
+    	}
     }
 
     /**
@@ -142,7 +145,8 @@ public class TurtleSoup {
     public static void main(String args[]) {
         DrawableTurtle turtle = new DrawableTurtle();
 
-        drawSquare(turtle, 40);
+        // drawSquare(turtle, 40);
+        drawRegularPolygon(turtle, 5, 20);
 
         // draw the window
         turtle.draw();
