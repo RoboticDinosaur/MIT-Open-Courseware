@@ -1,6 +1,11 @@
 {
-    "python.pythonPath": "C:\\Users\\rober\\AppData\\Local\\Programs\\Python\\Python38-32\\python.exe",
+    "python.pythonPath": "/home/rjf/.asdf/shims/python",
     "extensions.ignoreRecommendations": true,
     "files.autoSave": "off",
-    "debug.allowBreakpointsEverywhere": true
+    "debug.allowBreakpointsEverywhere": true,
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "//**/*.jar"
+    ],
+    "java.dependency.packagePresentation": "hierarchical"
 }
