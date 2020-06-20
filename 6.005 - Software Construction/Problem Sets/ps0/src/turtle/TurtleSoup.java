@@ -4,6 +4,9 @@
 package turtle;
 
 import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -102,15 +105,26 @@ public class TurtleSoup {
      */
     public static double calculateHeadingToPoint(double currentHeading, int currentX, int currentY,
                                                  int targetX, int targetY) {
+    	// assertEquals(0.0, TurtleSoup.calculateHeadingToPoint(0.0, 0, 0, 0, 1), 0.001);
+    	// assertEquals(90.0, TurtleSoup.calculateHeadingToPoint(0.0, 0, 0, 1, 0), 0.001);
+        // assertEquals(359.0, TurtleSoup.calculateHeadingToPoint(1.0, 4, 5, 4, 6), 0.001);
     	
-
-    	double angle = Math.atan2(targetY - currentY, targetX - currentX);
+    	double theta  = Math.atan2(targetX - currentX, targetY - currentY);
     	
-    	angle = angle * (180/Math.PI);
-    	   	
-    	System.out.println(currentHeading + angle);
+    	// double angle = Math.toDegrees(Math.atan2(currentY,  currentX) + Math.atan2(targetX, targetY));
+    	
+    	double angle = theta * (180/Math.PI);
+//    	double angle = theta + Math.PI/2.0;
+ 
+//    	angle = angle + Math.ceil( -angle / 360) * 360;
+		   
+    	if (angle < 0) {
+    		angle = currentHeading + angle;
+    	}
+    	
+    	System.out.println(angle - currentHeading);
     	    	
-    	return angle;
+    	return angle - currentHeading;
     }
 
     /**
